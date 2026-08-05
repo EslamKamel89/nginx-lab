@@ -1,0 +1,10 @@
+services:
+  nginx:
+    image: nginx:stable
+    container_name: nginx-lab
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/html:/usr/share/nginx/html
+      - ./nginx/conf.d:/etc/nginx/conf.d
