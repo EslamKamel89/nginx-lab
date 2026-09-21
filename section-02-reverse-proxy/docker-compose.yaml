@@ -1,0 +1,40 @@
+services:
+  nginx:
+    build:
+      context: ./nginx
+    container_name: nginx-reverse-proxy
+    ports:
+      - "80:80"
+    depends_on:
+      - videos-api
+      - articles-api
+      - worker-1-api
+      - worker-2-api
+  videos-api:
+    build:
+      context: ./fastapi
+    container_name: videos-api
+    environment:
+      SERVER_NAME: videos-api
+      ROOT_PATH: /videos
+  articles-api:
+    build:
+      context: ./fastapi
+    container_name: articles-api
+    environment:
+      SERVER_NAME: articles-api
+      ROOT_PATH: /articles
+  worker-1-api:
+    build:
+      context: ./fastapi
+    container_name: worker-1-api
+    environment:
+      SERVER_NAME: worker-1-api
+      ROOT_PATH: /load-balancing
+  worker-2-api:
+    build:
+      context: ./fastapi
+    container_name: worker-2-api
+    environment:
+      SERVER_NAME: worker-2-api
+      ROOT_PATH: /load-balancing
