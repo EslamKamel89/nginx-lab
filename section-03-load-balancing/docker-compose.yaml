@@ -1,0 +1,28 @@
+name: nginx-lab-load-balancing
+
+services:
+  worker-1:
+    build:
+      context: ./fastapi
+    environment:
+      SERVER_NAME: worker-1
+
+  worker-2:
+    build:
+      context: ./fastapi
+    environment:
+      SERVER_NAME: worker-2
+
+  worker-3:
+    build:
+      context: ./fastapi
+    environment:
+      SERVER_NAME: worker-3
+
+  nginx:
+    build:
+      context: ./nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
